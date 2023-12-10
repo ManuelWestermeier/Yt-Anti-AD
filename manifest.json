@@ -1,0 +1,19 @@
+{
+    "manifest_version": 3,
+    "name": "AYADS100",
+    "version": "1.0",
+    "description": "100% Working Anti Youtube Ads",
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.youtube.com/*"
+            ],
+            "css": [
+                "style.css"
+            ],
+            "js": [
+                "script.js"
+            ]
+        }
+    ]
+}
