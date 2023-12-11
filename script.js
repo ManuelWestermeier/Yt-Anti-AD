@@ -62,11 +62,18 @@ function __start() {
 
     }
 
+    var __YTVINDOWS = [];
+
     setInterval(start, 1000);
 
     class YtVidWindow {
 
         constructor(url) {
+
+            if (__YTVINDOWS.map(win => {
+                if (win.url == url) return true;
+                else return false
+            }).includes(true)) return;
 
             var _window = document.createElement("div");
             _window.classList.add("_window")
@@ -100,7 +107,10 @@ function __start() {
                 link.target = "_blank"
                 link.href = url;
                 link.click();
-                root.removeChild(_window);
+                _widows.removeChild(_window);
+                __YTVINDOWS = __YTVINDOWS.filter(win => {
+                    return win != this;
+                });
             })
             header.appendChild(newTabOpenButton)
 
@@ -108,13 +118,21 @@ function __start() {
             closeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>`
             closeButton.title = "close"
             closeButton.addEventListener("click", e => {
-                root.removeChild(_window)
+                _widows.removeChild(_window);
+                __YTVINDOWS = __YTVINDOWS.filter(win => {
+                    return win != this;
+                });
             })
             header.appendChild(closeButton)
 
             var video = document.createElement("iframe");
             video.src = url;
             _window.appendChild(video);
+
+            this.url = url;
+            this.window = _window;
+
+            __YTVINDOWS.push(this);
 
         }
 
