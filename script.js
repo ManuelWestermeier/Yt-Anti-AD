@@ -133,7 +133,16 @@ function __start() {
             }).includes(true)) return;
 
             var _window = document.createElement("div");
-            _window.classList.add("_window")
+            _window.classList.add("_window");
+
+            var ytVidContainer = document.getElementById("player-container-outer");
+            var _rect = ytVidContainer.getBoundingClientRect();
+
+            _window.style.top = _rect.top + "px";
+            _window.style.left = _rect.left + "px";
+            _window.style.width = _rect.width + "px";
+            _window.style.height = _rect.height + "px";
+
             globalWindowTopLayer++;
             _window.style.zIndex = globalWindowTopLayer;
 
@@ -149,7 +158,6 @@ function __start() {
             header.addEventListener("mousemove", e => {
 
                 if (e.buttons != 1) return
-
                 _window.style.top = parseInt(getComputedStyle(_window).top) + e.movementY + "px";
                 _window.style.left = parseInt(getComputedStyle(_window).left) + e.movementX + "px";
 
@@ -157,7 +165,7 @@ function __start() {
             var contextmenu = document.createElement("div")
             contextmenu.classList.add("contextmenu")
             contextmenu.classList.add("none")
-            for (let index = 0; index < 9; index++) {
+            for (var index = 0; index < 9; index++) {
                 var field = document.createElement("div");
                 field.classList.add("field");
                 field.addEventListener("click", e => {
@@ -182,7 +190,7 @@ function __start() {
             var replaceButton = document.createElement("button")
             replaceButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M666-440 440-666l226-226 226 226-226 226Zm-546-80v-320h320v320H120Zm400 400v-320h320v320H520Zm-400 0v-320h320v320H120Zm80-480h160v-160H200v160Zm467 48 113-113-113-113-113 113 113 113Zm-67 352h160v-160H600v160Zm-400 0h160v-160H200v160Zm160-400Zm194-65ZM360-360Zm240 0Z"/></svg>';
             replaceButton.addEventListener("click", e => {
-                contextmenu.classList.toggle("none");               
+                contextmenu.classList.toggle("none");
             })
             header.appendChild(replaceButton)
 
