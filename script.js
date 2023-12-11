@@ -1,3 +1,60 @@
+const states = [
+    {
+        top: "0%",
+        left: "0%",
+        width: "50%",
+        height: "50%",
+    },
+    {
+        top: "0%",
+        left: "0%",
+        width: "100%",
+        height: "50%",
+    },
+    {
+        top: "0%",
+        left: "50%",
+        width: "50%",
+        height: "50%",
+    },
+    {
+        top: "0%",
+        left: "0%",
+        width: "50%",
+        height: "100%",
+    },
+    {
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+    },
+    {
+        top: "0%",
+        left: "50%",
+        width: "50%",
+        height: "100%",
+    },
+    {
+        top: "50%",
+        left: "0%",
+        width: "50%",
+        height: "50%",
+    },
+    {
+        top: "50%",
+        left: "0%",
+        width: "100%",
+        height: "50%",
+    },
+    {
+        top: "50%",
+        left: "50%",
+        width: "50%",
+        height: "50%",
+    },
+];
+
 __start()
 function __start() {
 
@@ -97,7 +154,50 @@ function __start() {
                 _window.style.left = parseInt(getComputedStyle(_window).left) + e.movementX + "px";
 
             });
+            var contextmenu = document.createElement("div")
+            contextmenu.classList.add("contextmenu")
+            contextmenu.classList.add("none")
+            for (let index = 0; index < 9; index++) {
+                var field = document.createElement("div");
+                field.classList.add("field");
+                field.addEventListener("click", e => {
+                    contextmenu.classList.add("none")
+                    var state = states[index];
+                    _window.style.top = state.top;
+                    _window.style.left = state.left;
+                    _window.style.width = state.width;
+                    _window.style.height = state.height;
+                });
+                contextmenu.appendChild(field);
+            }
+            header.appendChild(contextmenu);
+            header.addEventListener("contextmenu", e => {
+
+                e.preventDefault();
+                contextmenu.classList.toggle("none");
+
+            });
             _window.appendChild(header);
+
+            var replaceButton = document.createElement("button")
+            replaceButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M666-440 440-666l226-226 226 226-226 226Zm-546-80v-320h320v320H120Zm400 400v-320h320v320H520Zm-400 0v-320h320v320H120Zm80-480h160v-160H200v160Zm467 48 113-113-113-113-113 113 113 113Zm-67 352h160v-160H600v160Zm-400 0h160v-160H200v160Zm160-400Zm194-65ZM360-360Zm240 0Z"/></svg>';
+            replaceButton.addEventListener("click", e => {
+                contextmenu.classList.toggle("none");               
+            })
+            header.appendChild(replaceButton)
+
+            var replaceButton = document.createElement("button")
+            replaceButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-320H520v-160H320v480Zm0-480v480-480ZM240-80v-80h80v80h-80Zm-80-640H80q0-33 23.5-56.5T160-800v80ZM400-80v-80h80v80h-80Zm160 0v-80h80v80h-80Zm-400-80v80q-33 0-56.5-23.5T80-160h80Zm-80-80v-80h80v80H80Zm0-160v-80h80v80H80Zm0-160v-80h80v80H80Zm640 400h80q0 33-23.5 56.5T720-80v-80Z"/></svg>'
+            replaceButton.addEventListener("click", e => {
+                __YTVINDOWS = __YTVINDOWS.map((win, index) => {
+                    if (win != this) return win;
+                    var url = new URL(document.location);
+                    win.url = getYTEmbedURL(url.searchParams.get("v"));
+                    win.video.src = win.url;
+                    return win;
+                })
+            })
+            header.appendChild(replaceButton)
 
             var newTabOpenButton = document.createElement("button");
             newTabOpenButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg>`
@@ -127,6 +227,7 @@ function __start() {
 
             var video = document.createElement("iframe");
             video.src = url;
+            this.video = video;
             _window.appendChild(video);
 
             this.url = url;

@@ -114,10 +114,43 @@ i {
     transform: scale(1.2);
 }
 
+.anti-add-root-elem ._window header .contextmenu {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    width: 200px;
+    height: 150px;
+    background-color: black;
+    transition: all 0.2s ease-in-out;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(45px, 1fr));
+    gap: 5px;
+}
+
+.anti-add-root-elem ._window header .contextmenu .field {
+    background-color: rgb(41, 41, 41);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.anti-add-root-elem ._window header .contextmenu .field:hover {
+    background-color: dodgerblue;
+    box-shadow: 0 0 10px 0 rgba(30, 143, 255, 0.458);
+    transform: scale(1.1);
+}
+
 .anti-add-root-elem ._window iframe {
     position: absolute;
     top: 35px;
     left: 0;
     width: 100%;
     height: calc(100% - 35px);
+}
+
+.anti-add-root-elem .none {
+    transform: scale(0);
+    opacity: 0.6;
 }
