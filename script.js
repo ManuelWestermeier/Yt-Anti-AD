@@ -1,3 +1,5 @@
+var globalWindowTopLayer = 10000;
+
 const root = document.createElement("div");
 root.classList.add("anti-add-root-elem")
 document.documentElement.appendChild(root);
@@ -20,17 +22,16 @@ function start() {
         if (document.location.pathname == url.pathname && document.location.search == url.search) return;
         if (url.pathname != "/watch") return;
     }
+    
+    if (isStart)
+        isStart = false;
 
-    isStart = false;
+    button.onclick = e => {
 
-    url = new URL(document.location);
-
-
-    button.addEventListener("click", e => {
-
+        url = new URL(document.location);
         new YtVidWindow(getYTEmbedURL(url.searchParams.get("v")))
 
-    });
+    };
 
 }
 
@@ -42,6 +43,14 @@ class YtVidWindow {
 
         var _window = document.createElement("div");
         _window.classList.add("_window")
+        globalWindowTopLayer++;
+        _window.style.zIndex = globalWindowTopLayer;
+
+        _window.addEventListener("click", e => {
+            globalWindowTopLayer++;
+            _window.style.zIndex = globalWindowTopLayer;
+        })
+
         root.appendChild(_window);
 
 
